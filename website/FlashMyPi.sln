@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "html", "html\html.csproj", "{AC27177E-CCC0-45DE-B63D-096AE47FBE4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashMyPi.Service", "FlashMyPi.Service\FlashMyPi.Service.csproj", "{B179D12F-C1D8-417F-84E4-8271D4D18A0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC27177E-CCC0-45DE-B63D-096AE47FBE4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC27177E-CCC0-45DE-B63D-096AE47FBE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC27177E-CCC0-45DE-B63D-096AE47FBE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC27177E-CCC0-45DE-B63D-096AE47FBE4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B179D12F-C1D8-417F-84E4-8271D4D18A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B179D12F-C1D8-417F-84E4-8271D4D18A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B179D12F-C1D8-417F-84E4-8271D4D18A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B179D12F-C1D8-417F-84E4-8271D4D18A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
