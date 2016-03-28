@@ -8,16 +8,20 @@ using System.Collections.Concurrent;
 
 namespace FlashMyPi.Service
 {
-    public class SocketServer
+    public class SocketServer : IDisposable
     {
-        public void Start()
+        private Thread listenerThread;
+
+        public void Dispose()
         {
-            AsynchronousSocketListener.StartListening();
+            // stop the socket server.
+            listenerThread.Abort();
         }
 
-        public void Stop()
+        public void Start()
         {
-
+            listenerThread = new Thread(AsynchronousSocketListener.StartListening);
+            listenerThread.Start();
         }
     }
 
@@ -77,7 +81,8 @@ namespace FlashMyPi.Service
             Socket handler = listener.EndAccept(ar);
 
             WriteLine($"Client connected. {handler.RemoteEndPoint.ToString()}");
-            openSockets.Add(handler);
+            //openSockets.Add(handler);
+            MessageBus.Subscribe(pattern => SendOnPattern(handler, pattern));
 
             // Create the state object.
             StateObject state = new StateObject();
@@ -127,13 +132,13 @@ namespace FlashMyPi.Service
 
         private static Random random = new Random();
         private static ConcurrentBag<Socket> openSockets = new ConcurrentBag<Socket>();
-        private static Timer timer = new Timer(x => 
-        {
-            foreach(var socket in openSockets)
-            {
-                SendOnTimer(socket);
-            }
-        }, null, 1000, 1000);
+//        private static Timer timer = new Timer(x => 
+//        {
+//            foreach(var socket in openSockets)
+//            {
+//                SendOnTimer(socket);
+//            }
+//        }, null, 1000, 1000);
 
         private static void SendOnTimer(Socket handler)
         {
@@ -160,6 +165,40 @@ namespace FlashMyPi.Service
                 handler.Shutdown(SocketShutdown.Both);
                 handler.Close();
             }
+        }
+
+        private static void SendOnPattern(Socket socket, Pattern pattern)
+        {
+            if(!socket.Connected)
+            {
+                return;
+            }
+            try
+            {
+                var x = 0;
+                var bytes = new byte[64];
+                for(var i = 0; i < 64; i++)
+                {
+                    bytes[i] = (byte)pattern.Pixels[x];
+                    x++;
+                    if(x >= pattern.Pixels.Length)
+                    {
+                        x = 0;
+                    }
+                }
+
+                socket.BeginSend(bytes, 0, bytes.Length, 0, _ => 
+                {
+                    WriteLine("Sent on pattern subscription handler.");
+                }, socket);
+            }
+            catch(Exception e)
+            {
+                WriteLine($"handler threw, so closing: {e.Message}");
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
+            
         }
 
         private static void Send(Socket handler, string data)
