@@ -23,7 +23,6 @@ def recieveMsg(sock):
         chunk = sock.recv(64)
         if chunk != b'':
             display(chunk)
-            print('message\n')
 
     return b''.join(chunks)
 
