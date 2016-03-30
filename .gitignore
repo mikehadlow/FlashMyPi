@@ -35,3 +35,6 @@ Source/.nuget/NuGet.exe
 
 # Ingore Visual Studio settings
 .vs
+
+# Ingore VIM swap files
+*.swp
