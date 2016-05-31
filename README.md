@@ -10,4 +10,4 @@ Pipe raspvid into VLC to create an rtsp stream on port 1234.
    
 Play this on your desktop with VLC:
 
-    rtsp://<raspberry pi hostname or ip address>>:1234/
+    rtsp://<raspberry pi hostname or ip address>:1234/
