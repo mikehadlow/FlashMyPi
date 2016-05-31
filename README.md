@@ -11,3 +11,7 @@ Pipe raspvid into VLC to create an rtsp stream on port 1234.
 Play this on your desktop with VLC:
 
     rtsp://<raspberry pi hostname or ip address>:1234/
+    
+Port forward to EC2 server:
+
+    ssh -g -R 1234:localhost:1234 -i .ssh/AspNetAwsKeyPari.pem ubuntu@mydomain.com
